@@ -58,20 +58,20 @@ require_once ("config/conexion.php");
 				</div>
 				<div class="col">
 					<label>Monto</label>
-					<input class="form-control" placeholder="entrada" id="monto">
+					<input class="form-control" name="monto" placeholder="entrada" id="monto" required="">
 				</div>
 				<div class="col">
 					<label>Tipo</label>
-					<input class="form-control" placeholder="entrada" id="tipo">
+					<input class="form-control" name="tipo" placeholder="entrada" id="tipo" required="">
 				</div>
 				<div class="col">
 					<label>Fecha</label>
-					<input class="form-control" placeholder="entrada" id="fecha">
+					<input class="form-control" name="fecha" placeholder="entrada" id="fecha" required="">
 				</div>
 			</div>
 			<br>
 			<div class="row justify-content-end">
-				<input class="btn btn-primary" type="submit" value="Submit">
+				<input class="btn btn-primary" type="submit" name="guardar" value="Submit">
 			</div>
 		</form>
 	</div>
