@@ -2,7 +2,7 @@
 $host ='localhost';
 $usuario='root';
 $clave='';
-$bd='';
+$bd='taxis';
 try {
 	$con = mysqli_connect($host,$usuario,$clave,$bd);	
 } catch (Exception $e) {
