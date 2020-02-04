@@ -9,7 +9,8 @@ if (isset($_POST['monto']) && isset($_POST['tipo']) && isset($_POST['fecha']) &&
 	$tipo = $_POST["tipo"];
 	$fecha = $_POST["fecha"];
 	$nombre = $_POST['nombre'];
-	$sqlnombre = "select nombre from facturas";
+
+	$sqlnombre = "select nombre from facturas where nombre = '$nombre' ";
 	$QueryNombre=mysqli_query($con, $sqlnombre);
 	$ValidarNombre=mysqli_fetch_assoc($QueryNombre);
 	$resultadoNombre=$ValidarNombre["nombre"];
@@ -19,7 +20,7 @@ if (isset($_POST['monto']) && isset($_POST['tipo']) && isset($_POST['fecha']) &&
 		$ValidarMonto=mysqli_fetch_assoc($QueryMonto);
 		$resultadoMonto=$ValidarMonto["monto"];
 		$total = $resultadoMonto + $monto;
-		$ConsultaAlterar = "update facturas set monto = '$total' ";
+		$ConsultaAlterar = "update facturas set monto = '$total' where nombre = '$nombre'";
 		$resultadoAlterar = mysqli_query($con, $ConsultaAlterar);
 		mysqli_close($con);	
 	}else{
