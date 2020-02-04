@@ -53,8 +53,8 @@ require_once ("config/conexion.php");
 		<form action="config/proceso.php" method="POST">
 			<div class="row">
 				<div class="col">
-					<label>ID</label>
-					<input class="form-control" placeholder="entrada" id="">
+					<label>Nombre</label>
+					<input class="form-control" name="nombre" placeholder="entrada" id="nombre" required="">
 				</div>
 				<div class="col">
 					<label>Monto</label>
@@ -77,34 +77,32 @@ require_once ("config/conexion.php");
 	</div>
 	<br>
 	<div class="container">
-		<table class="table table-hover table-bordered">
+		<table class="table table-hover table-bordered" id="tabla">
 			<thead>
 				<tr>
 					<th scope="col">#</th>
-					<th scope="col">nombre</th>
-					<th scope="col">dato 1</th>
-					<th scope="col">dato 2</th>
+					<th scope="col">Nombre</th>
+					<th scope="col">Monto</th>
+					<th scope="col">Tipo</th>
+					<th scope="col">Fecha</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td>reg1</td>
-					<td>reg2</td>
-					<td>reg3</td>
-				</tr>
-				<tr>
-					<th scope="row">2</th>
-					<td>reg4</td>
-					<td>reg5</td>
-					<td>reg6</td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td>reg7</td>
-					<td>reg8</td>
-					<td>reg9</td>
-				</tr>
+				<?php
+				$sql = "select nombre, monto, tipo, fecha from facturas";
+				$query = mysqli_query($con, $sql);
+				while ($mostrar = mysqli_fetch_array($query)) {
+					?>	
+					<tr>
+						<th scope="row">Reg</th>
+						<td><?php echo $mostrar['nombre'] ?></td>
+						<td><?php echo $mostrar['monto'] ?></td>
+						<td><?php echo $mostrar['tipo'] ?></td>
+						<td><?php echo $mostrar['fecha'] ?></td>
+					</tr>
+					<?php 
+				}
+				?>
 			</tbody>
 		</table>
 	</div>
