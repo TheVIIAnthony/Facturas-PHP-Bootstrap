@@ -54,19 +54,23 @@ require_once ("config/conexion.php");
 			<div class="row">
 				<div class="col">
 					<label>Nombre</label>
-					<input class="form-control" name="nombre" placeholder="entrada" id="nombre" required="">
+					<input class="form-control" name="nombre" placeholder="entrada" id="nombre" required>
 				</div>
 				<div class="col">
 					<label>Monto</label>
-					<input class="form-control" name="monto" placeholder="entrada" id="monto" required="">
+					<input class="form-control" name="monto" placeholder="entrada" id="monto" required>
 				</div>
 				<div class="col">
-					<label>Tipo</label>
-					<input class="form-control" name="tipo" placeholder="entrada" id="tipo" required="">
-				</div>
+                            <label class="bmd-label-floating">Tipo</label>
+                            <select name="tipo" class="form-control">
+                              <option value="Notas">Notas</option>
+                              <option value="Efectivo">Efectivo</option>
+                              <option value="Ambos">Ambos</option>
+                            </select>
+                          </div>
 				<div class="col">
-					<label>Fecha</label>
-					<input class="form-control" name="fecha" placeholder="entrada" id="fecha" required="">
+					<label class="bmd-label-floating">Fecha</label>
+					<input type="date" name="fecha" class="form-control" required>
 				</div>
 			</div>
 			<br>
@@ -89,7 +93,7 @@ require_once ("config/conexion.php");
 			</thead>
 			<tbody>
 				<?php
-				$sql = "select nombre, monto, tipo from facturas order by nombre";
+				$sql = "select distinct sum(monto), nombre from facturas GROUP BY nombre";
 				$query = mysqli_query($con, $sql);
 				// $QueryMonto=mysqli_query($con, $sqlmonto);
 				// $ValidarMonto=mysqli_fetch_assoc($QueryMonto);
@@ -98,8 +102,8 @@ require_once ("config/conexion.php");
 					?>	
 					<tr>
 						<th scope="row">Reg</th>
-						<td id="celdaNombre"><?php echo $mostrar['nombre'] ?></td>
-						<td><?php echo $mostrar['monto'] ?></td>
+						<td><?php echo $mostrar['nombre'] ?></td>
+						<td><?php echo $mostrar['sum(monto)'] ?></td>
 						<td>
 							<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Registros</button>
 						</td>
@@ -112,7 +116,7 @@ require_once ("config/conexion.php");
 			</tbody>
 		</table>
 		<div id="myModal" class="modal fade" role="dialog">
-			<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-dialog modal-lg modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h4 class="modal-title">Modal Header</h4>
