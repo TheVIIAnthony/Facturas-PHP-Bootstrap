@@ -78,33 +78,78 @@ require_once ("config/conexion.php");
 	<br>
 	<div class="container">
 		<table class="table table-hover table-bordered" id="tabla">
-			<thead>
+			<thead class="thead-dark">
 				<tr>
 					<th scope="col">#</th>
 					<th scope="col">Nombre</th>
 					<th scope="col">Monto</th>
-					<th scope="col">Tipo</th>
-					<th scope="col">Fecha</th>
+					<th scope="col">Revisar</th>
+					<th>PDF</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php
-				$sql = "select nombre, monto, tipo, fecha from facturas";
+				$sql = "select nombre, monto, tipo from facturas order by nombre";
 				$query = mysqli_query($con, $sql);
+				// $QueryMonto=mysqli_query($con, $sqlmonto);
+				// $ValidarMonto=mysqli_fetch_assoc($QueryMonto);
+				// $total=$ValidarMonto["monto"];
 				while ($mostrar = mysqli_fetch_array($query)) {
 					?>	
 					<tr>
 						<th scope="row">Reg</th>
-						<td><?php echo $mostrar['nombre'] ?></td>
+						<td id="celdaNombre"><?php echo $mostrar['nombre'] ?></td>
 						<td><?php echo $mostrar['monto'] ?></td>
-						<td><?php echo $mostrar['tipo'] ?></td>
-						<td><?php echo $mostrar['fecha'] ?></td>
+						<td>
+							<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Registros</button>
+						</td>
+						<td>
+							<button type="button" class="btn btn-info btn-sm"><a href=""></a> Generar PDF</button>
+						</td>
 					</tr>
 					<?php 
-				}
-				?>
+				}				?>
 			</tbody>
 		</table>
-	</div>
-</body>
-</html>
+		<div id="myModal" class="modal fade" role="dialog">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Modal Header</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<table class="table table-hover table-bordered" id="tabla">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Nombre</th>
+									<th scope="col">Monto</th>
+									<th scope="col">tipo</th>
+									<th scope="col">fecha</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+								$sql = "select nombre, monto, tipo, fecha from facturas ";
+								$query = mysqli_query($con, $sql);
+								while ($mostrar = mysqli_fetch_array($query)) {
+									?>	
+									<tr>
+										<th scope="row">Reg</th>
+										<td><?php echo $mostrar['nombre'] ?></td>
+										<td><?php echo $mostrar['monto'] ?></td>
+										<td><?php echo $mostrar['tipo'] ?></td>
+										<td><?php echo $mostrar['fecha'] ?></td>
+									</tr>
+									<?php 
+								}
+								?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	</html>
